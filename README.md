@@ -1,6 +1,6 @@
 # todo_101
 
-A new Flutter project.
+A new To-Do App using shared preferences.
 
 ## Getting Started
 
