@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:todo_101/components/custom_dialog.dart';
 import 'package:todo_101/components/todo_tile.dart';
 import 'package:todo_101/todo_storage.dart';
 import 'todo.dart';
@@ -86,7 +89,7 @@ class _TodoAppState extends State<TodoApp> {
         backgroundColor: Colors.blueGrey[900],
         title: const Text(
           'To-Do App',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900),
         ),
         actions: [
           IconButton(
@@ -95,12 +98,23 @@ class _TodoAppState extends State<TodoApp> {
               color: Colors.white,
             ),
             onPressed: () {
-              _clearTodos();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('All tasks cleared!'),
-                  backgroundColor: Colors.blueGrey[700],
-                ),
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialog(
+                    title: 'Clear All Tasks',
+                    content: 'Are you sure you want to clear all tasks?',
+                    onConfirm: () {
+                      _clearTodos();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('All tasks cleared!'),
+                          backgroundColor: Colors.blueGrey[700],
+                        ),
+                      );
+                    }, // Call _clearTodos on confirm
+                  );
+                },
               );
             }, // Clear all todos
             tooltip: 'Clear All',
@@ -132,6 +146,10 @@ class _TodoAppState extends State<TodoApp> {
                             borderSide:
                                 BorderSide(color: Colors.blueGrey[900]!)),
                         labelText: 'Add a task',
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: FaIcon(FontAwesomeIcons.pen),
+                        ),
                         border: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),

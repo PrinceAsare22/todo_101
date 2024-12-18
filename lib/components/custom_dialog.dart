@@ -4,19 +4,18 @@ class CustomDialog extends StatelessWidget {
   final String title;
   final String content;
   final VoidCallback onConfirm;
-  final VoidCallback onCancel;
 
   // Constructor for the custom dialog
   CustomDialog({
     required this.title,
     required this.content,
     required this.onConfirm,
-    required this.onCancel,
   });
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Colors.grey[200],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -45,8 +44,8 @@ class CustomDialog extends StatelessWidget {
                 // Cancel Button
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                    onCancel();
+                    // Close the dialog
+                    Navigator.of(context).pop();
                   },
                   child:
                       const Text('Cancel', style: TextStyle(color: Colors.red)),
@@ -58,7 +57,7 @@ class CustomDialog extends StatelessWidget {
                     onConfirm();
                   },
                   child: const Text('Confirm',
-                      style: TextStyle(color: Colors.green)),
+                      style: TextStyle(color: Colors.blue)),
                 ),
               ],
             ),
